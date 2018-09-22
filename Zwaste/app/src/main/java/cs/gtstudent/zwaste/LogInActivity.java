@@ -81,8 +81,6 @@ public class LogInActivity extends AppCompatActivity {
                 Toast.makeText(this, "Check your log in information.", Toast.LENGTH_SHORT).show();
             }
         }
-
-        //startActivity(MainView);
     }
 
     private boolean emailContainsAt(String email) {

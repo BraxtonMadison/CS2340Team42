@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background= "@color/primaryIvory"
+    tools:context="cs.gtstudent.zwaste.LogInActivity">
+
+    <LinearLayout
+        android:id="@+id/titleLogoLayout"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/titleLogo"
+            android:src="@drawable/title_logo"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="150dp"
+            android:maxWidth="180dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:id="@+id/loginInfoEdit"
+            android:visibility="invisible"
+            android:orientation="vertical"
+            android:layout_marginTop="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/emailInput"
+                android:textSize="23sp"
+                android:hint="Email"
+                android:textColorHint="@android:color/darker_gray"
+                android:textColor="@color/black"
+                android:inputType="text"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="italic"
+                android:background="@color/white"/>
+            <EditText
+                android:id="@+id/pwInput"
+                android:textSize="23sp"
+                android:hint="password"
+                android:textColorHint="@android:color/darker_gray"
+                android:textColor="@color/black"
+                android:inputType="textPassword"
+                android:layout_marginTop="12dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="italic"
+                android:background="@color/white"/>
+            <Button
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:background="@color/secondaryIvory"
+                android:text="Log In"
+                android:textColor="@color/primaryGrey"
+                android:fontFamily="sans-serif-condensed"
+                android:onClick="checkLogInInfo"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryGrey"
+                android:text="Forgot Password?"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/newAccountEdit"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:gravity="center_horizontal">
+            <Button
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:background="@color/tertiaryIvory"
+                android:text="   Create a New Account   "
+                android:textColor="@color/primaryGrey"
+                android:fontFamily="sans-serif-condensed"
+                android:onClick="createNewAccount"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,5 +1,6 @@
 package cs.gtstudent.zwaste;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -77,6 +78,8 @@ public class LogInActivity extends AppCompatActivity {
         } else {
             if (email.equals(authEmail) && password.equals(authPassword)) {
                 Toast.makeText(this, "Log in successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, MainScreenActivity.class);
+                startActivity(intent);
             } else {
                 Toast.makeText(this, "Check your log in information.", Toast.LENGTH_SHORT).show();
             }

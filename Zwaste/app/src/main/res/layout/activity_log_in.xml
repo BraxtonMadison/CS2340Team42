@@ -28,7 +28,7 @@
             android:id="@+id/loginInfoEdit"
             android:visibility="invisible"
             android:orientation="vertical"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="70dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

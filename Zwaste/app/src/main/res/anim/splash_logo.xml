@@ -9,7 +9,7 @@
         android:duration="1500"
         />
     <translate
-        android:fromYDelta="130%"
+        android:fromYDelta="150%"
         android:toYDelta="15%"
         android:duration="1000"
         android:startOffset="1700"

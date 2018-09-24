@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "774955284935",
+    "firebase_url": "https://cs2340-team42.firebaseio.com",
+    "project_id": "cs2340-team42",
+    "storage_bucket": "cs2340-team42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774955284935:android:320776d3be9faacc",
+        "android_client_info": {
+          "package_name": "cs.gtstudent.zwaste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774955284935-l8ajua42cg2998t258an8sdn7q68id2t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7gk1FjcvlgU5P1Sg1UPZnTL_uFp4YLJQ"
+        },
+        {
+          "current_key": "AIzaSyC7gk1FjcvlgU5P1Sg1UPZnTL_uFp4YLJQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

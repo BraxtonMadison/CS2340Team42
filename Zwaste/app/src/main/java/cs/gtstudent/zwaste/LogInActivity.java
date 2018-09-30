@@ -1,5 +1,8 @@
 package cs.gtstudent.zwaste;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,31 +18,38 @@ import android.widget.Toast;
 public class LogInActivity extends AppCompatActivity {
 
     //Internal View Components
-    private LinearLayout viewLayout;
-    private LinearLayout logInInfoEdit;
-    private LinearLayout newAccountEdit;
+    private FrameLayout logInRegistrationFrame;
+    private LogInFragment logInFragment;
+    private RegistrationFragment registrationFragment;
 
-    private Animation splash_logo, appear_log_in;
+    //Animation Components
+    private Animation splash_logo;      //For Title Logo Appearance
+    private Animation appear_log_in;    // For Log In Component Appearance
 
-    private ImageView titleLogo;
-    private EditText emailInput, pwInput;
+    //Image, Editable Textbox, etc.
+    private ImageView titleLogo;            //Title Logo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        viewLayout = (LinearLayout)findViewById(R.id.titleLogoLayout);
-        logInInfoEdit = (LinearLayout)findViewById(R.id.loginInfoEdit);
-        newAccountEdit = (LinearLayout)findViewById(R.id.newAccountEdit);
+        //Fragment for log-in and user registration.
+        logInRegistrationFrame = findViewById(R.id.logInRegistrationFragment);
+        logInFragment = new LogInFragment();
+        registrationFragment = new RegistrationFragment();
 
-        titleLogo = (ImageView)viewLayout.findViewById(R.id.titleLogo);
-        emailInput = (EditText)viewLayout.findViewById(R.id.emailInput);
-        pwInput = (EditText)viewLayout.findViewById(R.id.pwInput);
+        //Set Log in fragment as initial fragment
+        setFragment(0);
 
+        titleLogo = (ImageView)findViewById(R.id.titleLogo);
+
+        //Initialize Animation
         splash_logo = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash_logo);
         appear_log_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.appear_log_in);
+        splash_logo.setFillAfter(true);
 
+        //Start animation for logo
         titleLogo.startAnimation(splash_logo);
 
         splash_logo.setAnimationListener(new Animation.AnimationListener() {
@@ -50,8 +60,10 @@ public class LogInActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                logInInfoEdit.startAnimation(appear_log_in);
-                newAccountEdit.startAnimation(appear_log_in);
+                /* Let ID/PW Input screen and register user button appear only after when
+                 * Animation for Title logo is over.
+                 */
+                logInRegistrationFrame.startAnimation(appear_log_in);
             }
 
             @Override
@@ -61,41 +73,19 @@ public class LogInActivity extends AppCompatActivity {
         });
 
     }
-
-    public void checkLogInInfo(View view) {
-        String email, password;
-        //Dummy info for testing
-        String authEmail, authPassword;
-
-        email = emailInput.getText().toString().trim();
-        password = pwInput.getText().toString().trim();
-
-        authEmail = getResources().getString(R.string.dummy_user_email);
-        authPassword = getResources().getString(R.string.dummy_user_password);
-
-        if (!emailContainsAt(email)) {
-            Toast.makeText(this, "Please check your email.", Toast.LENGTH_SHORT).show();
-        } else {
-            if (email.equals(authEmail) && password.equals(authPassword)) {
-                Toast.makeText(this, "Log in successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainScreenActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Check your log in information.", Toast.LENGTH_SHORT).show();
-            }
+    public void setFragment(int num) {
+        FragmentTransaction fragmentExchange = getFragmentManager()
+                .beginTransaction();
+        switch (num) {
+            case 0:
+                fragmentExchange.replace(R.id.logInRegistrationFragment, logInFragment);
+                fragmentExchange.commit();
+                break;
+            case 1:
+                fragmentExchange.replace(R.id.logInRegistrationFragment, registrationFragment);
+                fragmentExchange.commit();
+                break;
         }
-    }
-
-    private boolean emailContainsAt(String email) {
-        char[] emailChar = email.toCharArray();
-        for (char c : emailChar)  {
-            if (c == '@') return true;
-        }
-        return false;
-    }
-
-    public void createNewAccount(View view) {
-
     }
 
 }

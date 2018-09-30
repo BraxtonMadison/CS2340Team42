@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    tools:context=".RegistrationFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:text="Full Name"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:backgroundTint="@color/tertiaryIvory"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:text="User Type"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"/>
+        <RadioGroup
+            android:id="@+id/userType"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/user_regUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/black"
+                android:buttonTint="@color/primaryGreen"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/user_locEmp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location Employee"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/black"
+                android:buttonTint="@color/primaryGreen"
+                android:checked="false"/>
+            <RadioButton
+                android:id="@+id/user_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Administrator"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/black"
+                android:buttonTint="@color/primaryGreen"
+                android:checked="false"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:text="ID"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/idEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:backgroundTint="@color/tertiaryIvory"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:text="Password"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/pwEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:backgroundTint="@color/tertiaryIvory"/>
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/tertiaryIvory"
+            android:text="Submit"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/primaryGrey"/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -16,6 +16,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.HashSet;
+import java.util.Set;
+
 public class LogInFragment extends Fragment {
     private View view;
 
@@ -50,19 +59,21 @@ public class LogInFragment extends Fragment {
     }
     private void checkLogInInfo(View view) {
         String email, password;
-        //Dummy info for testing
-        String authEmail, authPassword;
+        String logInInfo;
 
         email = emailInput.getText().toString().trim();
         password = pwInput.getText().toString().trim();
+        logInInfo = email + ".." + password;
 
-        authEmail = getResources().getString(R.string.dummy_user_email);
-        authPassword = getResources().getString(R.string.dummy_user_password);
-
+        Set<String> userLogInData = getUserData();
+        if (userLogInData == null) {
+            Toast.makeText(this.getActivity(), "Check your log in information.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!emailContainsAt(email)) {
             Toast.makeText(this.getActivity(), "Please check your email.", Toast.LENGTH_SHORT).show();
         } else {
-            if (email.equals(authEmail) && password.equals(authPassword)) {
+            if (userLogInData.contains(logInInfo)) {
                 Toast.makeText(this.getActivity(), "Log in successful", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this.getActivity(), MainScreenActivity.class);
                 startActivity(intent);
@@ -77,6 +88,27 @@ public class LogInFragment extends Fragment {
             if (c == '@') return true;
         }
         return false;
+    }
+
+    private Set<String> getUserData() {
+        String userLogInInfoName = "userLogInInfo.dat";
+        Set<String> userData = null;
+        File storedUsers = new File(this.view.getContext().getFilesDir(), userLogInInfoName);
+        if (!storedUsers.exists()) {
+            return null;
+        }
+        try {
+            FileInputStream fileInputStream = this.view.getContext().openFileInput(userLogInInfoName);
+            ObjectInputStream ois = new ObjectInputStream(fileInputStream);
+            userData = (HashSet) ois.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return userData;
     }
 
 }

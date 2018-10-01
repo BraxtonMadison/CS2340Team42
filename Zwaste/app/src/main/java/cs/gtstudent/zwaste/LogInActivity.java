@@ -40,7 +40,7 @@ public class LogInActivity extends AppCompatActivity {
         registrationFragment = new RegistrationFragment();
 
         //Set Log in fragment as initial fragment
-        setFragment(0);
+        setFragment(1);
 
         titleLogo = (ImageView)findViewById(R.id.titleLogo);
 
@@ -71,18 +71,20 @@ public class LogInActivity extends AppCompatActivity {
 
             }
         });
-
     }
+
     public void setFragment(int num) {
         FragmentTransaction fragmentExchange = getFragmentManager()
                 .beginTransaction();
         switch (num) {
             case 0:
                 fragmentExchange.replace(R.id.logInRegistrationFragment, logInFragment);
+                fragmentExchange.setCustomAnimations(R.animator.slide_left_in, R.animator.slide_right_out);
                 fragmentExchange.commit();
                 break;
             case 1:
                 fragmentExchange.replace(R.id.logInRegistrationFragment, registrationFragment);
+                fragmentExchange.setCustomAnimations(R.animator.slide_right_in, R.animator.slide_left_out);
                 fragmentExchange.commit();
                 break;
         }

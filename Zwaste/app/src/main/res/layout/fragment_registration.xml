@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="50dp"
         android:orientation="vertical">
 
         <TextView
@@ -16,20 +17,27 @@
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
             android:text="Full Name"
+            android:textSize="@dimen/registerFont"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"/>
         <EditText
             android:id="@+id/nameEdit"
-            android:layout_width="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="@color/black"
             android:fontFamily="sans-serif-condensed"
-            android:backgroundTint="@color/tertiaryIvory"/>
+            android:textSize="@dimen/registerFont"
+            android:backgroundTint="@color/primaryGrey"/>
 
         <TextView
+            android:paddingTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
             android:text="User Type"
+            android:textSize="@dimen/registerFont"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"/>
         <RadioGroup
@@ -42,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User"
+                android:textSize="@dimen/registerFont"
                 android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:buttonTint="@color/primaryGreen"
@@ -51,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location Employee"
+                android:textSize="@dimen/registerFont"
                 android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:buttonTint="@color/primaryGreen"
@@ -60,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Administrator"
+                android:textSize="@dimen/registerFont"
                 android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:buttonTint="@color/primaryGreen"
@@ -67,43 +78,70 @@
         </RadioGroup>
 
         <TextView
+            android:paddingTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
             android:text="ID"
+            android:textSize="@dimen/registerFont"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"/>
         <EditText
             android:id="@+id/idEdit"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:backgroundTint="@color/tertiaryIvory"/>
+            android:inputType="text"
+            android:textSize="@dimen/registerFont"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/primaryGrey"/>
 
         <TextView
+            android:paddingTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
             android:text="Password"
+            android:textSize="@dimen/registerFont"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"/>
         <EditText
             android:id="@+id/pwEdit"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:backgroundTint="@color/tertiaryIvory"/>
+            android:inputType="textPassword"
+            android:textSize="@dimen/registerFont"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/primaryGrey"/>
 
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="@color/tertiaryIvory"
-            android:text="Submit"
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/primaryGrey"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/tertiaryIvory"
+                android:text="Cancel"
+                android:textSize="@dimen/registerFont"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/primaryGrey"/>
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/primaryGreen"
+                android:text="Submit"
+                android:textSize="@dimen/registerFont"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/primaryGrey"/>
 
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

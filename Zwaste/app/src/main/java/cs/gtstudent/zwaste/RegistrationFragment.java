@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -76,7 +81,7 @@ public class RegistrationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 User newUser = checkRegisterInfo();
-                String logInInfo = newUser.getId() + ".." + newUser.getPassword();
+                String logInInfo = newUser.getUserLogIn().toString() + ";";
                 registerNewUser(newUser, logInInfo);
                 ((LogInActivity)getActivity()).setFragment(0);
             }
@@ -102,72 +107,29 @@ public class RegistrationFragment extends Fragment {
     }
     private void registerNewUser(User newUser, String logInInfo) {
 
-        //userInfoName = For all User data
-        //userLogInInfoName = Only for id and password
-        String userInfoName = "userInfo.dat";
+        //userInfoName : For all User data
+        //userLogInInfoName :  Only for id and password
+        //String userInfoName = "userInfo.dat";
         String userLogInInfoName = "userLogInInfo.dat";
-        File storedUsers = new File(this.view.getContext().getFilesDir(), userInfoName);
-        File storedLogInUsers = new File(this.view.getContext().getFilesDir(), userLogInInfoName);
+        File directory = this.getContext().getFilesDir();
+        File userLogInInfoFile = new File(directory, userLogInInfoName);
 
-        FileInputStream inputStream;
-        FileOutputStream outputStream;
-
-        if (!storedUsers.exists()) {
-            Set<User> userData = new HashSet<>();
-            Set<String> userLogInData = new HashSet<>();
-
+        if (!userLogInInfoFile.exists()) {
             try {
-                storedUsers.createNewFile();
-                storedLogInUsers.createNewFile();
-
-                //For All User data, including Name and User Type
-                outputStream = this.view.getContext().openFileOutput(userInfoName, Context.MODE_PRIVATE);
-                ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-                oos.writeObject(userData);
-                oos.close();
-
-                //For Log In info only, id and password
-                outputStream = this.view.getContext().openFileOutput(userLogInInfoName, Context.MODE_PRIVATE);
-                oos = new ObjectOutputStream(outputStream);
-                oos.writeObject(userLogInData);
-                oos.close();
+                userLogInInfoFile.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         try {
-            inputStream = this.view.getContext().openFileInput(userInfoName);
-            outputStream = this.view.getContext().openFileOutput(userInfoName, Context.MODE_PRIVATE);
-            ObjectInputStream ois = new ObjectInputStream(inputStream);
-            ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+            PrintWriter pw = new PrintWriter(userLogInInfoFile);
 
-            Set<User> userData = (HashSet) ois.readObject();
-            userData.add(newUser);
+            System.out.println(logInInfo);
 
-            oos.writeObject(userData);
-            oos.close();
-
-            //------------------------
-
-            inputStream = this.view.getContext().openFileInput(userLogInInfoName);
-            outputStream = this.view.getContext().openFileOutput(userLogInInfoName, Context.MODE_PRIVATE);
-            ois = new ObjectInputStream(inputStream);
-            oos = new ObjectOutputStream(outputStream);
-
-            Set<String> userLogInData = (HashSet) ois.readObject();
-            userLogInData.add(logInInfo);
-
-            oos.writeObject(userLogInData);
-            oos.close();
+            pw.append(logInInfo);
+            pw.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
-        Toast.makeText(this.getActivity(), "Registration successful", Toast.LENGTH_SHORT).show();
     }
 }
-
-//inputStream = this.view.getContext().openFileInput(userListName);
-//                ObjectInputStream ois = new ObjectInputStream(inputStream);
-//                userData = (HashSet)ois.readObject();

@@ -16,10 +16,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.HashSet;
@@ -63,14 +65,14 @@ public class LogInFragment extends Fragment {
 
         email = emailInput.getText().toString().trim();
         password = pwInput.getText().toString().trim();
-        logInInfo = email + ".." + password;
+        logInInfo = new UserLogIn(email, password).toString();
 
-        Set<String> userLogInData = getUserData();
+        String userLogInData = getUserData();
         if (userLogInData == null) {
             Toast.makeText(this.getActivity(), "Check your log in information.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!emailContainsAt(email)) {
+        if (false/*!emailContainsAt(email)*/) {
             Toast.makeText(this.getActivity(), "Please check your email.", Toast.LENGTH_SHORT).show();
         } else {
             if (userLogInData.contains(logInInfo)) {
@@ -90,24 +92,23 @@ public class LogInFragment extends Fragment {
         return false;
     }
 
-    private Set<String> getUserData() {
+    private String getUserData() {
         String userLogInInfoName = "userLogInInfo.dat";
-        Set<String> userData = null;
-        File storedUsers = new File(this.view.getContext().getFilesDir(), userLogInInfoName);
+        File directory = this.getContext().getFilesDir();
+        File storedUsers = new File(directory, userLogInInfoName);
+        String userData = "";
         if (!storedUsers.exists()) {
             return null;
         }
         try {
-            FileInputStream fileInputStream = this.view.getContext().openFileInput(userLogInInfoName);
-            ObjectInputStream ois = new ObjectInputStream(fileInputStream);
-            userData = (HashSet) ois.readObject();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            BufferedReader bfr = new BufferedReader(new FileReader(storedUsers));
+            userData = bfr.readLine();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
+
+        System.out.println(userData);
+        Log.i(userData, "Shit");
         return userData;
     }
 

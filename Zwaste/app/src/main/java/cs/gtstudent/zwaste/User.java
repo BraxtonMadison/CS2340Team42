@@ -43,4 +43,17 @@ public class User {
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
+
+    public UserLogIn getUserLogIn() {
+        return userLogIn;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", userType=" + userType +
+                ", userLogIn=" + userLogIn +
+                '}';
+    }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.util.Log;
@@ -15,6 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,6 +39,8 @@ public class LogInFragment extends Fragment {
     private Button logInButton, registerUserButton;
     private EditText emailInput, pwInput;  //ID and PW input
 
+    private FirebaseAuth auth;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +51,8 @@ public class LogInFragment extends Fragment {
 
         emailInput = (EditText)view.findViewById(R.id.emailInput);
         pwInput = (EditText)view.findViewById(R.id.pwInput);
+
+        auth = FirebaseAuth.getInstance();
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +69,7 @@ public class LogInFragment extends Fragment {
 
         return view;
     }
-    private void checkLogInInfo(View view) {
+    private void checkLogInInfo(final View view) {
         String email, password;
         String logInInfo;
 
@@ -72,16 +82,28 @@ public class LogInFragment extends Fragment {
             Toast.makeText(this.getActivity(), "Check your log in information.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (false/*!emailContainsAt(email)*/) {
+        if (!emailContainsAt(email)) {
             Toast.makeText(this.getActivity(), "Please check your email.", Toast.LENGTH_SHORT).show();
         } else {
-            if (userLogInData.contains(logInInfo)) {
+            /*if (userLogInData.contains(logInInfo)) {
                 Toast.makeText(this.getActivity(), "Log in successful", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this.getActivity(), MainScreenActivity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(this.getActivity(), "Check your log in information.", Toast.LENGTH_SHORT).show();
-            }
+            }*/
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(view.getContext(), "Check your log in information.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(view.getContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(view.getContext(), MainScreenActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            });
         }
     }
     private boolean emailContainsAt(String email) {

@@ -8,17 +8,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainScreenActivity extends AppCompatActivity {
+
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main_screen);
 
     }
 
     public void backToLogIn(View view) {
         Toast.makeText(this, "You logged out.", Toast.LENGTH_SHORT).show();
+        auth.signOut();
         this.finish();
     }
 

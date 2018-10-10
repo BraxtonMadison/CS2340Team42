@@ -1,11 +1,9 @@
 package cs.gtstudent.zwaste;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +13,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.Set;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 
-import static android.content.Context.MODE_PRIVATE;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class RegistrationFragment extends Fragment {
 
@@ -39,6 +32,8 @@ public class RegistrationFragment extends Fragment {
 
     private Button cancelButton, submitButton;
     private UserType userType;
+
+    private FirebaseAuth auth;
 
     @Nullable
     @Override
@@ -54,6 +49,8 @@ public class RegistrationFragment extends Fragment {
 
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
         submitButton = (Button)view.findViewById(R.id.submitButton);
+
+        auth = FirebaseAuth.getInstance();
 
         userTypeRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -110,7 +107,7 @@ public class RegistrationFragment extends Fragment {
         //userInfoName : For all User data
         //userLogInInfoName :  Only for id and password
         //String userInfoName = "userInfo.dat";
-        String userLogInInfoName = "userLogInInfo.dat";
+        /*String userLogInInfoName = "userLogInInfo.dat";
         File directory = this.getContext().getFilesDir();
         File userLogInInfoFile = new File(directory, userLogInInfoName);
 
@@ -130,6 +127,20 @@ public class RegistrationFragment extends Fragment {
             pw.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        String id = newUser.getId();
+        String pw = newUser.getPassword();
+        auth.createUserWithEmailAndPassword(id, pw).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (!task.isSuccessful()) {
+                    FirebaseAuthException e = (FirebaseAuthException)task.getException();
+                    Toast.makeText(view.getContext(), "Registration Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(view.getContext(), "Registration Complete", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

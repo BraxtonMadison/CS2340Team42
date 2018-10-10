@@ -1,5 +1,6 @@
 package cs.gtstudent.zwaste;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -40,7 +41,7 @@ public class LogInActivity extends AppCompatActivity {
         registrationFragment = new RegistrationFragment();
 
         //Set Log in fragment as initial fragment
-        setFragment(1);
+        setFragment(0);
 
         titleLogo = (ImageView)findViewById(R.id.titleLogo);
 

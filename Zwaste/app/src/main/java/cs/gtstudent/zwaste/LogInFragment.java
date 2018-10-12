@@ -85,13 +85,6 @@ public class LogInFragment extends Fragment {
         if (!emailContainsAt(email)) {
             Toast.makeText(this.getActivity(), "Please check your email.", Toast.LENGTH_SHORT).show();
         } else {
-            /*if (userLogInData.contains(logInInfo)) {
-                Toast.makeText(this.getActivity(), "Log in successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this.getActivity(), MainScreenActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this.getActivity(), "Check your log in information.", Toast.LENGTH_SHORT).show();
-            }*/
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -130,7 +123,6 @@ public class LogInFragment extends Fragment {
         }
 
         System.out.println(userData);
-        Log.i(userData, "Shit");
         return userData;
     }
 

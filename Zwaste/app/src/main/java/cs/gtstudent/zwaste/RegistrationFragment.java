@@ -103,32 +103,6 @@ public class RegistrationFragment extends Fragment {
         return new User(name, id, password, userType);
     }
     private void registerNewUser(User newUser, String logInInfo) {
-
-        //userInfoName : For all User data
-        //userLogInInfoName :  Only for id and password
-        //String userInfoName = "userInfo.dat";
-        /*String userLogInInfoName = "userLogInInfo.dat";
-        File directory = this.getContext().getFilesDir();
-        File userLogInInfoFile = new File(directory, userLogInInfoName);
-
-        if (!userLogInInfoFile.exists()) {
-            try {
-                userLogInInfoFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            PrintWriter pw = new PrintWriter(userLogInInfoFile);
-
-            System.out.println(logInInfo);
-
-            pw.append(logInInfo);
-            pw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
         String id = newUser.getId();
         String pw = newUser.getPassword();
         auth.createUserWithEmailAndPassword(id, pw).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {

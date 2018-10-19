@@ -17,16 +17,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Available Places"
+        android:text="Available Locations"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:fontFamily="sans-serif-condensed"
         android:textSize="30sp"/>
-    <ListView
-        android:id="@+id/listView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/primaryGrey"
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:drawSelectorOnTop="false"/>

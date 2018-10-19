@@ -1,6 +1,8 @@
 package cs.gtstudent.zwaste;
 
-public class LocationData {
+import java.io.Serializable;
+
+public class LocationData implements Serializable{
     private String locationName;
     private String locationType;
     private String longitude;

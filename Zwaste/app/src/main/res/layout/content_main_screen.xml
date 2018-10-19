@@ -25,7 +25,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/primaryGrey"
         android:layout_margin="10dp"
         android:layout_weight="1"

@@ -20,18 +20,16 @@ import java.util.List;
 public class MainScreenActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private LinearLayout mainScreen;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager recyLayoutManager;
     private List<LocationData> csvDataList;
-    private LocationLRecyViewAdapter adapter;
+    private LocationRecyViewAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        mainScreen = findViewById(R.id.mainScreen);
         auth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.recyView);
         recyclerView.setHasFixedSize(true);
@@ -40,16 +38,15 @@ public class MainScreenActivity extends AppCompatActivity {
 
         csvDataList = new ArrayList<>();
 
-        adapter = new LocationLRecyViewAdapter(populateListView());
+        adapter = new LocationRecyViewAdapter(populateWithLocations());
         recyclerView.setAdapter(adapter);
-
     }
     public void backToLogIn(View view) {
         Toast.makeText(this, "You logged out.", Toast.LENGTH_SHORT).show();
         auth.signOut();
         this.finish();
     }
-    private List<LocationRecyViewItem> populateListView() {
+    private List<LocationRecyViewItem> populateWithLocations() {
         InputStream is = getResources().openRawResource(R.raw.location_data);
         CSVReader csvReader = new CSVReader(is);
         ArrayList<LocationRecyViewItem> items = new ArrayList<>();
@@ -57,7 +54,7 @@ public class MainScreenActivity extends AppCompatActivity {
 
         for (int x = 1; x < csvDataList.size(); x++) {
             LocationData d = csvDataList.get(x);
-            items.add(new LocationRecyViewItem(ContextCompat.getDrawable(this.getApplicationContext(), R.drawable.title_logo), d.getLocationName(), d.getLocationType(), d));
+            items.add(new LocationRecyViewItem(R.drawable.title_logo, d));
         }
         return items;
     }

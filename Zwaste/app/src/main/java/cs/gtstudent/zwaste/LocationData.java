@@ -1,6 +1,8 @@
 package cs.gtstudent.zwaste;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocationData implements Serializable{
     private String locationName;
@@ -10,6 +12,8 @@ public class LocationData implements Serializable{
     private String address;
     private String phoneNum;
 
+    private List<ItemRecyViewItem> itemData;
+
     public LocationData(String locationName, String locationType, String longitude, String latitude, String address, String phoneNum) {
         this.locationName = locationName;
         this.locationType = locationType;
@@ -17,6 +21,7 @@ public class LocationData implements Serializable{
         this.latitude = latitude;
         this.address = address;
         this.phoneNum = phoneNum;
+        itemData = new ArrayList<>();
     }
 
     /**
@@ -31,6 +36,7 @@ public class LocationData implements Serializable{
         this.address = data[4] + ", " + data[5] + ", "+ data[6] + ", " + data[7];
         this.locationType = data[8];
         this.phoneNum = data[9];
+        itemData = new ArrayList<>();
     }
     public String toString() {
         return "Location: " + locationName + "\n"
@@ -46,5 +52,12 @@ public class LocationData implements Serializable{
     }
     public String getLocationType() {
         return locationType;
+    }
+
+    public void addItem(ItemRecyViewItem item) {
+        itemData.add(item);
+    }
+    public List<ItemRecyViewItem> getItems () {
+        return itemData;
     }
 }

@@ -3,49 +3,32 @@ package cs.gtstudent.zwaste;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-public class LocationRecyViewItem {
-    private Drawable imageID;
-    private String locationName;
-    private String locationType;
+import java.io.Serializable;
+
+public class LocationRecyViewItem implements Serializable{
+    private int imageID;
 
     private LocationData locData;
 
-    public LocationRecyViewItem(Drawable imageID, String locationName, String locationType, LocationData locData) {
+    public LocationRecyViewItem(int imageID, LocationData locData) {
         this.imageID = imageID;
-        this.locationName = locationName;
-        this.locationType = locationType;
         this.locData = locData;
     }
 
-    public Drawable getImageID() {
+    public int getImageID() {
         return imageID;
     }
 
-    public void setImageID(Drawable imageID) {
-        this.imageID = imageID;
-    }
-
     public String getLocationName() {
-        return locationName;
-    }
-
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+        return locData.getLocationName();
     }
 
     public String getLocationType() {
-        return locationType;
-    }
-
-    public void setLocationType(String locationType) {
-        this.locationType = locationType;
+        return locData.getLocationType();
     }
 
     public LocationData getLocationData() {
         return locData;
     }
 
-    public void setLocationData(LocationData locData) {
-        this.locData = locData;
-    }
 }

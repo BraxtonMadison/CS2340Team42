@@ -22,7 +22,9 @@
             android:name=".MainScreenActivity"
             android:label="@string/title_activity_main_screen"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".ShowItemsActivity"></activity>
+        <activity android:name=".ShowOptionsActivity" />
+        <activity android:name=".ShowItemsActivity" />
+        <activity android:name=".AddItemsActivity"></activity>
     </application>
 
 </manifest>

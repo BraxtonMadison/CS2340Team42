@@ -77,7 +77,7 @@ public class LogInFragment extends Fragment {
 
         String userLogInData = getUserData();
         if (userLogInData == null) {
-            Toast.makeText(this.getActivity(), "Check your log in information.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getActivity(), "Check your log in information. null", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!emailContainsAt(email)) {
@@ -87,7 +87,7 @@ public class LogInFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (!task.isSuccessful()) {
-                        Toast.makeText(view.getContext(), "Check your log in information.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(view.getContext(), "Check your log in information. firebase", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(view.getContext(), "Log in successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(view.getContext(), MainScreenActivity.class);

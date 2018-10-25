@@ -4,17 +4,20 @@ import java.io.Serializable;
 
 public class ItemRecyViewItem implements Serializable {
     private int imageID;
-    private String itemInfo;
+    private String itemName;
+    private String itemType;
 
-    public ItemRecyViewItem (int imageID, String itemInfo) {
+    public ItemRecyViewItem (int imageID, String itemName, String itemType) {
         this.imageID = imageID;
-        this.itemInfo = itemInfo;
+        this.itemName = itemName;
+        this.itemType = itemType;
     }
 
     public int getImageID() {
         return imageID;
     }
-    public String getItemInfo() {
-        return itemInfo;
+    public String getItemName() {
+        return itemName;
     }
+    public String getItemType() { return itemType; }
 }

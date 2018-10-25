@@ -25,22 +25,24 @@ public class ItemRecyViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         View view;
         ItemRecyViewItem item;
         ImageView itemImage;
-        TextView itemInfo;
+        TextView itemName;
+        TextView itemType;
 
         ItemRecyViewHolder (View view) {
             super(view);
             this.view = view;
             itemImage = view.findViewById(R.id.itemImage);
-            itemInfo = view.findViewById(R.id.itemInfo);
+            itemName = view.findViewById(R.id.itemName);
+            itemType = view.findViewById(R.id.itemType);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String itemData = item.getItemInfo();
+                    String thisItemName = item.getItemName();
 
                     LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                     View customView = inflater.inflate(R.layout.location_pop_up,null);
                     TextView locText = customView.findViewById(R.id.fullLocData);
-                    locText.setText(itemData);
+                    locText.setText(thisItemName);
                     PopupWindow mPopupWindow = new PopupWindow(
                             customView,
                             LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -58,7 +60,8 @@ public class ItemRecyViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public void setData(ItemRecyViewItem item) {
             this.item = item;
             itemImage.setImageDrawable(ContextCompat.getDrawable(view.getContext(), item.getImageID()));
-            itemInfo.setText(item.getItemInfo());
+            itemName.setText(item.getItemName());
+            itemType.setText(item.getItemType());
         }
     }
 

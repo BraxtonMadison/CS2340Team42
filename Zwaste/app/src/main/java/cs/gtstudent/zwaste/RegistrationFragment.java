@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.IOException;
@@ -102,7 +103,7 @@ public class RegistrationFragment extends Fragment {
 
         return new User(name, id, password, userType);
     }
-    private void registerNewUser(User newUser, String logInInfo) {
+    private void registerNewUser(final User newUser, String logInInfo) {
         String id = newUser.getId();
         String pw = newUser.getPassword();
         auth.createUserWithEmailAndPassword(id, pw).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
@@ -112,7 +113,14 @@ public class RegistrationFragment extends Fragment {
                     FirebaseAuthException e = (FirebaseAuthException)task.getException();
                     Toast.makeText(view.getContext(), "Registration Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(view.getContext(), "Registration Complete", Toast.LENGTH_SHORT).show();
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(view.getContext(), "Registration Complete", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });

@@ -17,7 +17,8 @@ import java.io.OutputStreamWriter;
 public class AddItemsActivity extends AppCompatActivity {
 
     private TextView instruction;
-    private EditText addItemText;
+    private EditText addItemName;
+    private EditText addItemType;
     private Button submitItemButton;
 
     @Override
@@ -28,17 +29,19 @@ public class AddItemsActivity extends AppCompatActivity {
         final LocationRecyViewItem locationData = (LocationRecyViewItem) getIntent().getExtras().get("LOCATION_DATA");
 
         instruction = findViewById(R.id.instruction);
-        addItemText = findViewById(R.id.addItemText);
+        addItemName = findViewById(R.id.addItemName);
+        addItemType = findViewById(R.id.addItemType);
         submitItemButton = findViewById(R.id.submitItem);
 
         submitItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String info = addItemText.getText().toString().trim();
+                String itemName = addItemName.getText().toString().trim();
+                String itemType = addItemType.getText().toString().trim();
                 int imageID = R.drawable.title_logo;
 
-                if (info.length() > 0) {
-                    ItemRecyViewItem newItem = new ItemRecyViewItem(imageID, info);
+                if (itemName.length() > 0) {
+                    ItemRecyViewItem newItem = new ItemRecyViewItem(imageID, itemName, itemType);
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("newItem", newItem);
                     setResult(Activity.RESULT_OK, returnIntent);

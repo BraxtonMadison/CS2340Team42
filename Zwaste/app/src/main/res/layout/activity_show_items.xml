@@ -10,7 +10,7 @@
         android:id="@+id/itemsRecyView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primaryGrey"
+        android:background="@color/primaryIvory"
         android:layout_margin="10dp"
         android:layout_weight="1"/>
 

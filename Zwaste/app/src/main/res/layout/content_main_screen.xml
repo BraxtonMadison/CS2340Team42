@@ -9,8 +9,7 @@
 
     android:id="@+id/mainScreen"
     android:background= "@color/primaryIvory"
-    android:orientation="vertical"
-    tools:showIn="@layout/activity_main_screen">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/listTitle"
@@ -26,7 +25,7 @@
         android:id="@+id/recyView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/primaryGrey"
+        android:background="@color/primaryIvory"
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:drawSelectorOnTop="false"/>

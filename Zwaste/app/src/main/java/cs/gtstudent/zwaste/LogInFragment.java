@@ -71,11 +71,9 @@ public class LogInFragment extends Fragment {
     }
     private void checkLogInInfo(final View view) {
         String email, password;
-        String logInInfo;
 
         email = emailInput.getText().toString().trim();
         password = pwInput.getText().toString().trim();
-        logInInfo = new UserLogIn(email, password).toString();
 
         String userLogInData = getUserData();
         if (userLogInData == null) {

@@ -29,7 +29,7 @@ public class MainScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen);
+        setContentView(R.layout.content_main_screen);
         auth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.recyView);
         recyclerView.setHasFixedSize(true);

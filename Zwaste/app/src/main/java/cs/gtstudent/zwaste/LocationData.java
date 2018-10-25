@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationData implements Serializable{
+import cs.gtstudent.zwaste.ItemRecyViewItem;
+
+public class LocationData implements Serializable {
     private String locationName;
     private String locationType;
     private String longitude;

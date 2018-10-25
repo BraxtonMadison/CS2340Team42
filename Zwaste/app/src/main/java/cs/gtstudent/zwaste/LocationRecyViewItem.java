@@ -4,10 +4,11 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocationRecyViewItem implements Serializable{
     private int imageID;
-
     private LocationData locData;
 
     public LocationRecyViewItem(int imageID, LocationData locData) {

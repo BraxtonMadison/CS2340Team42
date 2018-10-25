@@ -75,11 +75,6 @@ public class LogInFragment extends Fragment {
         email = emailInput.getText().toString().trim();
         password = pwInput.getText().toString().trim();
 
-        String userLogInData = getUserData();
-        if (userLogInData == null) {
-            Toast.makeText(this.getActivity(), "Check your log in information. null", Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (!emailContainsAt(email)) {
             Toast.makeText(this.getActivity(), "Please check your email.", Toast.LENGTH_SHORT).show();
         } else {
@@ -105,23 +100,5 @@ public class LogInFragment extends Fragment {
         return false;
     }
 
-    private String getUserData() {
-        String userLogInInfoName = "userLogInInfo.dat";
-        File directory = this.getContext().getFilesDir();
-        File storedUsers = new File(directory, userLogInInfoName);
-        String userData = "";
-        if (!storedUsers.exists()) {
-            return null;
-        }
-        try {
-            BufferedReader bfr = new BufferedReader(new FileReader(storedUsers));
-            userData = bfr.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(userData);
-        return userData;
-    }
 
 }

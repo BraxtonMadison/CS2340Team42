@@ -29,6 +29,8 @@ public class ShowItemsActivity extends AppCompatActivity {
 
         adapter = new ItemRecyViewAdapter(populateWithItems(locationData));
         itemsRecyView.setAdapter(adapter);
+
+
     }
 
     private List<ItemRecyViewItem> populateWithItems(LocationRecyViewItem locationData) {

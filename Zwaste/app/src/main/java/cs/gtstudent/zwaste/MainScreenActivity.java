@@ -25,7 +25,6 @@ public class MainScreenActivity extends AppCompatActivity {
     private List<LocationData> csvDataList;
     private LocationRecyViewAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

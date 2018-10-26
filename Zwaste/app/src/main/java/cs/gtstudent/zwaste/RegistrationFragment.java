@@ -27,12 +27,12 @@ import java.io.PrintWriter;
 public class RegistrationFragment extends Fragment {
 
     private View view;
-    private EditText name, id, password;
+    private EditText name, emailID, password;
     private RadioGroup userTypeRadio;
     private RadioButton userFinalTypeRadio;
 
     private Button cancelButton, submitButton;
-    private UserType userType;
+    private User.UserType userType;
 
     private FirebaseAuth auth;
 
@@ -43,7 +43,7 @@ public class RegistrationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_registration, container, false);
 
         name = (EditText)view.findViewById(R.id.nameEdit);
-        id = (EditText)view.findViewById(R.id.idEdit);
+        emailID = (EditText)view.findViewById(R.id.idEdit);
         password = (EditText)view.findViewById(R.id.pwEdit);
         userTypeRadio = (RadioGroup)view.findViewById(R.id.userType);
         userFinalTypeRadio = (RadioButton)view.findViewById(R.id.user_regUser);
@@ -59,11 +59,11 @@ public class RegistrationFragment extends Fragment {
                 userFinalTypeRadio = (RadioButton)view.findViewById(index);
                 switch (index) {
                     case R.id.user_regUser:
-                        userType = UserType.REG_USER;
+                        userType = User.UserType.REG_USER;
                     case R.id.user_locEmp:
-                        userType = UserType.LOC_EMPL;
+                        userType = User.UserType.LOC_EMPL;
                     case R.id.user_admin:
-                        userType = UserType.ADMIN;
+                        userType = User.UserType.ADMIN;
                 }
             }
         });
@@ -79,8 +79,7 @@ public class RegistrationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 User newUser = checkRegisterInfo();
-                String logInInfo = newUser.getUserLogIn().toString() + ";";
-                registerNewUser(newUser, logInInfo);
+                registerNewUser(newUser);
                 ((LogInActivity)getActivity()).setFragment(0);
             }
         });
@@ -90,23 +89,24 @@ public class RegistrationFragment extends Fragment {
 
     private void removeAllText() {
         name.setText("");
-        id.setText("");
+        emailID.setText("");
         password.setText("");
         userFinalTypeRadio = (RadioButton)view.findViewById(R.id.user_regUser);
     }
     private User checkRegisterInfo() {
         String name = this.name.getText().toString().trim();
-        String id = this.id.getText().toString().trim();
+        String id = this.emailID.getText().toString().trim();
         String password = this.password.getText().toString().trim();
 
         //Criteria for appropriate user information would go here but I was too lazy to write them
 
         return new User(name, id, password, userType);
     }
-    private void registerNewUser(final User newUser, String logInInfo) {
-        String id = newUser.getId();
-        String pw = newUser.getPassword();
-        auth.createUserWithEmailAndPassword(id, pw).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
+    private void registerNewUser(final User newUser) {
+        final String emailID = newUser.getEmailID();
+        final String id = newUser.getId();
+        final String pw = newUser.getPassword();
+        auth.createUserWithEmailAndPassword(emailID, pw).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
@@ -114,7 +114,8 @@ public class RegistrationFragment extends Fragment {
                     Toast.makeText(view.getContext(), "Registration Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     FirebaseDatabase.getInstance().getReference()
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child("users")
+                            .child(id)
                             .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

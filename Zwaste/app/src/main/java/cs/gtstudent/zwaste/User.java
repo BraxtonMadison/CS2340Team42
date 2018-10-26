@@ -1,15 +1,38 @@
 package cs.gtstudent.zwaste;
 
 public class User {
+
+    public enum UserType {
+        REG_USER("reg_user"),
+        LOC_EMPL("loc_empl"),
+        ADMIN("admin");
+
+        UserType(String userType) {
+            this.userType = userType;
+        }
+
+        private final String userType;
+
+        public String getUserType() {return this.userType; }
+    }
+
     private String name;
+    private String emailID;
+    private String id;
+    private String pw;
     private UserType userType;
 
-    private UserLogIn userLogIn;
-
-    public User (String name, String id, String password, UserType userType) {
+    public User (String name, String emailID, String password, UserType userType) {
         this.name = name;
+        this.emailID = emailID;
+        this.id = parseID(emailID);
+        this.pw = password;
         this.userType = userType;
-        this.userLogIn = new UserLogIn(id, password);
+    }
+
+    private String parseID(String emailID) {
+        int index = emailID.indexOf("@");
+        return emailID.substring(0, index);
     }
 
     public String getName() {
@@ -20,21 +43,11 @@ public class User {
         this.name = name;
     }
 
-    public String getId() {
-        return userLogIn.getId();
-    }
+    public String getEmailID() { return emailID; }
 
-    public void setId(String id) {
-        this.userLogIn.setId(id);
-    }
+    public String getId () { return id; }
 
-    public String getPassword() {
-        return userLogIn.getPassword();
-    }
-
-    public void setPassword(String password) {
-        this.userLogIn.setPassword(password);
-    }
+    public String getPassword() { return pw; }
 
     public UserType getUserType() {
         return userType;
@@ -44,16 +57,4 @@ public class User {
         this.userType = userType;
     }
 
-    public UserLogIn getUserLogIn() {
-        return userLogIn;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", userType=" + userType +
-                ", userLogIn=" + userLogIn +
-                '}';
-    }
 }

@@ -2,20 +2,6 @@ package cs.gtstudent.zwaste;
 
 public class User {
 
-    public enum UserType {
-        REG_USER("reg_user"),
-        LOC_EMPL("loc_empl"),
-        ADMIN("admin");
-
-        UserType(String userType) {
-            this.userType = userType;
-        }
-
-        private final String userType;
-
-        public String getUserType() {return this.userType; }
-    }
-
     private String name;
     private String emailID;
     private String id;

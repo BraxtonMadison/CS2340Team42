@@ -32,7 +32,7 @@ public class RegistrationFragment extends Fragment {
     private RadioButton userFinalTypeRadio;
 
     private Button cancelButton, submitButton;
-    private User.UserType userType;
+    private UserType userType;
 
     private FirebaseAuth auth;
 
@@ -59,11 +59,11 @@ public class RegistrationFragment extends Fragment {
                 userFinalTypeRadio = (RadioButton)view.findViewById(index);
                 switch (index) {
                     case R.id.user_regUser:
-                        userType = User.UserType.REG_USER;
+                        userType = UserType.REG_USER;
                     case R.id.user_locEmp:
-                        userType = User.UserType.LOC_EMPL;
+                        userType = UserType.LOC_EMPL;
                     case R.id.user_admin:
-                        userType = User.UserType.ADMIN;
+                        userType = UserType.ADMIN;
                 }
             }
         });
@@ -115,7 +115,7 @@ public class RegistrationFragment extends Fragment {
                 } else {
                     FirebaseDatabase.getInstance().getReference()
                             .child("users")
-                            .child(id)
+                            .child(auth.getUid())
                             .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

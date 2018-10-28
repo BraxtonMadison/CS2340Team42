@@ -22,7 +22,8 @@
         <RadioGroup
             android:id="@+id/searchType"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:checkedButton="@id/searchWithName">
             <RadioButton
                 android:id="@+id/searchWithName"
                 android:text="Name"

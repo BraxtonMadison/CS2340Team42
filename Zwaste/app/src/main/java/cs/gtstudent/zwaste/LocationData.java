@@ -24,6 +24,9 @@ public class LocationData implements Serializable {
         this.address = address;
         this.phoneNum = phoneNum;
         itemData = new ArrayList<>();
+        for (int x = 0; x < 15; x ++) {
+            itemData.add(new ItemRecyViewItem(R.drawable.title_logo, "lit", "lit"));
+        }
     }
 
     /**

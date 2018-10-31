@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="50dp"
         android:orientation="vertical">
 
         <TextView
@@ -66,10 +65,10 @@
                 android:buttonTint="@color/primaryGreen"
                 android:checked="false"/>
             <RadioButton
-                android:id="@+id/user_admin"
+                android:id="@+id/user_manager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Administrator"
+                android:text="Manager"
                 android:textSize="@dimen/registerFont"
                 android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"

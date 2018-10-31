@@ -65,7 +65,6 @@ public class LogInActivity extends AppCompatActivity {
         splash_logo.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override
@@ -78,7 +77,6 @@ public class LogInActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
     }

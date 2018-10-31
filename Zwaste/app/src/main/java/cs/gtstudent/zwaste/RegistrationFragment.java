@@ -32,7 +32,7 @@ public class RegistrationFragment extends Fragment {
     private RadioButton userFinalTypeRadio;
 
     private Button cancelButton, submitButton;
-    private UserType userType;
+    private User.UserType userType;
 
     private FirebaseAuth auth;
 
@@ -47,6 +47,7 @@ public class RegistrationFragment extends Fragment {
         password = (EditText)view.findViewById(R.id.pwEdit);
         userTypeRadio = (RadioGroup)view.findViewById(R.id.userType);
         userFinalTypeRadio = (RadioButton)view.findViewById(R.id.user_regUser);
+        userType = User.UserType.REG_USER;
 
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
         submitButton = (Button)view.findViewById(R.id.submitButton);
@@ -59,11 +60,14 @@ public class RegistrationFragment extends Fragment {
                 userFinalTypeRadio = (RadioButton)view.findViewById(index);
                 switch (index) {
                     case R.id.user_regUser:
-                        userType = UserType.REG_USER;
+                        userType = User.UserType.REG_USER;
+                        break;
                     case R.id.user_locEmp:
-                        userType = UserType.LOC_EMPL;
-                    case R.id.user_admin:
-                        userType = UserType.ADMIN;
+                        userType = User.UserType.LOC_EMPL;
+                        break;
+                    case R.id.user_manager:
+                        userType = User.UserType.MANAGER;
+                        break;
                 }
             }
         });
@@ -80,6 +84,7 @@ public class RegistrationFragment extends Fragment {
             public void onClick(View view) {
                 User newUser = checkRegisterInfo();
                 registerNewUser(newUser);
+                removeAllText();
                 ((LogInActivity)getActivity()).setFragment(0);
             }
         });
@@ -95,16 +100,15 @@ public class RegistrationFragment extends Fragment {
     }
     private User checkRegisterInfo() {
         String name = this.name.getText().toString().trim();
-        String id = this.emailID.getText().toString().trim();
+        String emailId = this.emailID.getText().toString().trim();
         String password = this.password.getText().toString().trim();
 
         //Criteria for appropriate user information would go here but I was too lazy to write them
 
-        return new User(name, id, password, userType);
+        return new User(name, emailId, password, userType);
     }
     private void registerNewUser(final User newUser) {
         final String emailID = newUser.getEmailID();
-        final String id = newUser.getId();
         final String pw = newUser.getPassword();
         auth.createUserWithEmailAndPassword(emailID, pw).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
             @Override

@@ -1,11 +1,19 @@
 package cs.gtstudent.zwaste;
 
+import android.content.ClipData;
+
 import java.io.Serializable;
 
 public class ItemRecyViewItem implements Serializable {
     private int imageID;
     private String itemName;
     private String itemType;
+
+    public ItemRecyViewItem() {
+        this.imageID = R.id.titleLogo;
+        this.itemName = "";
+        this.itemName = "";
+    }
 
     public ItemRecyViewItem (int imageID, String itemName, String itemType) {
         this.imageID = imageID;

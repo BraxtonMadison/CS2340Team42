@@ -3,6 +3,7 @@ package cs.gtstudent.zwaste;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,8 +23,15 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ShowItemsActivity extends AppCompatActivity {
 
@@ -104,10 +112,26 @@ public class ShowItemsActivity extends AppCompatActivity {
     }
 
     private List<ItemRecyViewItem> populateWithItems(LocationRecyViewItem locationData) {
-        List<ItemRecyViewItem> stuff = locationData.getLocationData().getItems();
-        if (stuff == null) {
-            Log.i("Info: ", "NULL!");
-        }
+        final List<ItemRecyViewItem> stuff = new ArrayList<>();
+        DatabaseReference dbr = FirebaseDatabase.getInstance().getReference()
+                .child("locations")
+                .child(locationData.getLocationName())
+                .child("items");
+        dbr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    stuff.add((ItemRecyViewItem)(ds.getValue(ItemRecyViewItem.class)));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        locationRecyViewItem.getLocationData().setItems(stuff);
         return stuff;
     }
 

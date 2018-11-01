@@ -65,4 +65,6 @@ public class LocationData implements Serializable {
     public List<ItemRecyViewItem> getItems () {
         return itemData;
     }
+
+    public void setItems(List<ItemRecyViewItem> items) { itemData = items; }
 }

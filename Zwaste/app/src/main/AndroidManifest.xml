@@ -24,7 +24,8 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".ShowOptionsActivity" />
         <activity android:name=".ShowItemsActivity" />
-        <activity android:name=".AddItemsActivity"></activity>
+        <activity android:name=".AddItemsActivity" />
+        <activity android:name=".MainMenuActivity"/>
     </application>
 
 </manifest>

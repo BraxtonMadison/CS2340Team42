@@ -14,4 +14,10 @@
     <color name="tertiaryIvory">#FBF1BC</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <color name="pastelGreen">#BED7D1</color>
+    <color name="pastelYellow">#F7EBC3</color>
+    <color name="pastelOrange">#FBD6C6</color>
+    <color name="pastelPink">#FBE1E7</color>
+
 </resources>

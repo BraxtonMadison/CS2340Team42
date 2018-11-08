@@ -87,9 +87,7 @@ public class ShowOptionsActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 ItemRecyViewItem newItem = (ItemRecyViewItem) intent.getExtras().get("newItem");
                 DatabaseReference dbr = FirebaseDatabase.getInstance().getReference();
-                dbr.child("locations")
-                        .child(hashedLocationName)
-                        .child("items")
+                dbr.child("items")
                         .child(newItem.getItemName())
                         .setValue(newItem).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -97,7 +95,6 @@ public class ShowOptionsActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Adding complete", Toast.LENGTH_SHORT);
                     }
                 });
-                locationData.getLocationData().addItem(newItem);
             }
         }
     }

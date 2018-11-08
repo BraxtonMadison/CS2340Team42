@@ -46,6 +46,7 @@ public class ShowItemsActivity extends AppCompatActivity {
     private RadioGroup searchType;
 
     LocationRecyViewItem locationRecyViewItem;
+    List<ItemRecyViewItem> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,8 @@ public class ShowItemsActivity extends AppCompatActivity {
         itemsRecyManager = new LinearLayoutManager(this);
         itemsRecyView.setLayoutManager(itemsRecyManager);
 
-        adapter = new ItemRecyViewAdapter(populateWithItems(locationRecyViewItem));
+        items = populateWithItems(locationRecyViewItem);
+        adapter = new ItemRecyViewAdapter(items);
         itemsRecyView.setAdapter(adapter);
 
         searchLogo = findViewById(R.id.searchLogo);
@@ -114,15 +116,13 @@ public class ShowItemsActivity extends AppCompatActivity {
     private List<ItemRecyViewItem> populateWithItems(LocationRecyViewItem locationData) {
         final List<ItemRecyViewItem> stuff = new ArrayList<>();
         DatabaseReference dbr = FirebaseDatabase.getInstance().getReference()
-                .child("locations")
-                .child(SHA256.getSHA256(locationData.getLocationName()))
                 .child("items");
         dbr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    stuff.add((ItemRecyViewItem)(ds.getValue(ItemRecyViewItem.class)));
-
+                    if (ds.getValue(ItemRecyViewItem.class).getLocation().equals(locationRecyViewItem.getLocationName()))
+                        stuff.add((ItemRecyViewItem)(ds.getValue(ItemRecyViewItem.class)));
                 }
             }
 
@@ -131,7 +131,6 @@ public class ShowItemsActivity extends AppCompatActivity {
 
             }
         });
-        locationRecyViewItem.getLocationData().setItems(stuff);
         return stuff;
     }
 
@@ -140,7 +139,7 @@ public class ShowItemsActivity extends AppCompatActivity {
         // Get their names or category
         // Re define list of items
 
-        List<ItemRecyViewItem> itemsHere = locationRecyViewItem.getLocationData().getItems();
+        List<ItemRecyViewItem> itemsHere = items;
         List<ItemRecyViewItem> itemsConditionFit = new ArrayList<>();
         if (itemsHere.size() == 0) return;
 

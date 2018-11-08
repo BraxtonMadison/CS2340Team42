@@ -72,12 +72,12 @@ public class ShowMapLocationActivity extends AppCompatActivity
             double latitude = Double.parseDouble(locData.getLatitude().trim());
             double longitude = Double.parseDouble(locData.getLongitude().trim());
             String name = locData.getLocationName();
-            String locationType = locData.getLocationType();
+            String phoneNum = locData.getPhoneNum();
             LatLng tempLoc = new LatLng (latitude, longitude);
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(tempLoc);
             markerOptions.title(name);
-            markerOptions.snippet(locationType);
+            markerOptions.snippet(phoneNum);
             map.addMarker(markerOptions);
         }
     }

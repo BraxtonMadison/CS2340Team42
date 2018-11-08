@@ -29,6 +29,8 @@ public class AddItemsActivity extends AppCompatActivity {
     private EditText addItemType;
     private Button submitItemButton;
 
+    private LocationRecyViewItem locationRecyViewItem;
+
     private FirebaseAuth auth;
     private FirebaseDatabase db;
 
@@ -42,6 +44,8 @@ public class AddItemsActivity extends AppCompatActivity {
         addItemType = findViewById(R.id.addItemType);
         submitItemButton = findViewById(R.id.submitItem);
 
+        locationRecyViewItem = (LocationRecyViewItem) getIntent().getExtras().get("LOCATION_DATA");
+
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
 
@@ -52,9 +56,8 @@ public class AddItemsActivity extends AppCompatActivity {
                 String itemType = addItemType.getText().toString().trim();
                 int imageID = R.drawable.title_logo;
 
-
                 if (itemName.length() > 0) {
-                    ItemRecyViewItem newItem = new ItemRecyViewItem(imageID, itemName, itemType);
+                    ItemRecyViewItem newItem = new ItemRecyViewItem(imageID, locationRecyViewItem.getLocationName(), itemName, itemType);
 
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("newItem", newItem);

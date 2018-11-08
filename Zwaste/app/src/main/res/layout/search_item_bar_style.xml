@@ -45,6 +45,8 @@
             android:background="@color/white"
             android:textColor="@color/black"
             android:textColorHint="@color/primaryGrey"
+            android:inputType="text"
+            android:maxLines="1"
             android:hint="Item"/>
 
     </LinearLayout>

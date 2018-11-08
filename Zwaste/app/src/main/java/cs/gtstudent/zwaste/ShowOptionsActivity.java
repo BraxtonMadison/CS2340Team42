@@ -29,6 +29,7 @@ public class ShowOptionsActivity extends AppCompatActivity {
     LocationRecyViewItem locationData;
 
     private FirebaseDatabase db;
+    private String hashedLocationName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +42,11 @@ public class ShowOptionsActivity extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
 
+        hashedLocationName = SHA256.getSHA256(locationData.getLocationName());
+
         db.getReference()
                 .child("locations")
-                .child(locationData.getLocationName())
+                .child(hashedLocationName)
                 .child("items").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -55,8 +58,6 @@ public class ShowOptionsActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-
 
         showItems = findViewById(R.id.showItems);
         addItems = findViewById(R.id.addItems);
@@ -87,7 +88,7 @@ public class ShowOptionsActivity extends AppCompatActivity {
                 ItemRecyViewItem newItem = (ItemRecyViewItem) intent.getExtras().get("newItem");
                 DatabaseReference dbr = FirebaseDatabase.getInstance().getReference();
                 dbr.child("locations")
-                        .child(locationData.getLocationName())
+                        .child(hashedLocationName)
                         .child("items")
                         .child(newItem.getItemName())
                         .setValue(newItem).addOnCompleteListener(new OnCompleteListener<Void>() {

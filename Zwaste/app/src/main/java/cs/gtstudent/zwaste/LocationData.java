@@ -7,6 +7,7 @@ import java.util.List;
 import cs.gtstudent.zwaste.ItemRecyViewItem;
 
 public class LocationData implements Serializable {
+
     private String locationName;
     private String locationType;
     private String longitude;
@@ -16,6 +17,9 @@ public class LocationData implements Serializable {
 
     private List<ItemRecyViewItem> itemData;
 
+    public LocationData() {
+    }
+
     public LocationData(String locationName, String locationType, String longitude, String latitude, String address, String phoneNum) {
         this.locationName = locationName;
         this.locationType = locationType;
@@ -24,9 +28,6 @@ public class LocationData implements Serializable {
         this.address = address;
         this.phoneNum = phoneNum;
         itemData = new ArrayList<>();
-        for (int x = 0; x < 15; x ++) {
-            itemData.add(new ItemRecyViewItem(R.drawable.title_logo, "lit", "lit"));
-        }
     }
 
     /**
@@ -58,6 +59,10 @@ public class LocationData implements Serializable {
     public String getLocationType() {
         return locationType;
     }
+    public String getLongitude() { return longitude; }
+    public String getLatitude() { return latitude; }
+    public String getAddress() { return address; }
+    public String getPhoneNum() { return phoneNum; }
 
     public void addItem(ItemRecyViewItem item) {
         itemData.add(item);

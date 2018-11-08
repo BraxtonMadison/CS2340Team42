@@ -75,30 +75,21 @@ public class LogInFragment extends Fragment {
         email = emailInput.getText().toString().trim();
         password = pwInput.getText().toString().trim();
 
-        if (!emailContainsAt(email)) {
+        if (!email.contains("@")) {
             Toast.makeText(this.getActivity(), "Please check your email.", Toast.LENGTH_SHORT).show();
         } else {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (!task.isSuccessful()) {
-                        Toast.makeText(view.getContext(), "Check your log in information. firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(view.getContext(), "Check your log in information.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(view.getContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(view.getContext(), MainScreenActivity.class);
+                        Intent intent = new Intent(view.getContext(), MainMenuActivity.class);
                         startActivity(intent);
                     }
                 }
             });
         }
     }
-    private boolean emailContainsAt(String email) {
-        char[] emailChar = email.toCharArray();
-        for (char c : emailChar)  {
-            if (c == '@') return true;
-        }
-        return false;
-    }
-
-
 }

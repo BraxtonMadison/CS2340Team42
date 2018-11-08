@@ -115,7 +115,7 @@ public class ShowItemsActivity extends AppCompatActivity {
         final List<ItemRecyViewItem> stuff = new ArrayList<>();
         DatabaseReference dbr = FirebaseDatabase.getInstance().getReference()
                 .child("locations")
-                .child(locationData.getLocationName())
+                .child(SHA256.getSHA256(locationData.getLocationName()))
                 .child("items");
         dbr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

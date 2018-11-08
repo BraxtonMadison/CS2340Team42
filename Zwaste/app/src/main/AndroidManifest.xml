@@ -11,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC5zqGK_NKyaMSUdMrKhbE7Mu0f6L5RpSQ"
+            />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
         <activity android:name=".LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +34,7 @@
         <activity android:name=".ShowOptionsActivity" />
         <activity android:name=".ShowItemsActivity" />
         <activity android:name=".AddItemsActivity" />
+        <activity android:name=".ShowMapLocationActivity" />
         <activity android:name=".MainMenuActivity"/>
     </application>
 

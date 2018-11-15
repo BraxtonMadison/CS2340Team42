@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class LogInFragment extends Fragment {
         if (!email.contains("@")) {
             Toast.makeText(this.getActivity(), "Please check your email.",
                                                                     Toast.LENGTH_SHORT).show();
+            Log.i("Log In Failure", "Reason: Email format failure");
         } else {
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this.getActivity(),
@@ -79,6 +81,7 @@ public class LogInFragment extends Fragment {
                     if (!task.isSuccessful()) {
                         Toast.makeText(view.getContext(), "Check your log in information.",
                                                                     Toast.LENGTH_SHORT).show();
+                        Log.i("Log In Failure", "Reason: Firebase Failure");
                     } else {
                         Toast.makeText(view.getContext(), "Log in successful",
                                                                     Toast.LENGTH_SHORT).show();

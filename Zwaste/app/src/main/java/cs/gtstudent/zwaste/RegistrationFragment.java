@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Receives information from the user, checks the information for correctness and safety,
  * and registers the user onto the Firebase.
  */
+
 public class RegistrationFragment extends Fragment {
 
     private View view;

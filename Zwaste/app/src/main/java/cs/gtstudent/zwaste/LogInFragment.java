@@ -32,6 +32,9 @@ public class LogInFragment extends Fragment {
 
     private FirebaseAuth auth;
 
+    //For Debugging purpose
+    private boolean isLogInSuccessful;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -62,6 +65,8 @@ public class LogInFragment extends Fragment {
         return view;
     }
     private void checkLogInInfo(final View view) {
+        isLogInSuccessful = false;
+
         String email;
         String password;
 
@@ -86,6 +91,7 @@ public class LogInFragment extends Fragment {
                         Toast.makeText(view.getContext(), "Log in successful",
                                                                     Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(view.getContext(), MainMenuActivity.class);
+                        isLogInSuccessful = true;
                         startActivity(intent);
                     }
                 }

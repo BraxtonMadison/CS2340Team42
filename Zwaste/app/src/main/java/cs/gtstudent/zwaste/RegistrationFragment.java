@@ -20,44 +20,49 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-
+/**
+ * Controller Class responsible for Registration functionality.
+ * Receives information from the user, checks the information for correctness and safety,
+ * and registers the user onto the Firebase.
+ */
 public class RegistrationFragment extends Fragment {
 
     private View view;
-    private EditText name, emailID, password;
+    private EditText name;
+    private EditText emailID;
+    private EditText password;
     private RadioGroup userTypeRadio;
     private RadioButton userFinalTypeRadio;
 
-    private Button cancelButton, submitButton;
+    private Button cancelButton;
+    private Button submitButton;
     private User.UserType userType;
 
     private FirebaseAuth auth;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_registration, container, false);
 
-        name = (EditText)view.findViewById(R.id.nameEdit);
-        emailID = (EditText)view.findViewById(R.id.idEdit);
-        password = (EditText)view.findViewById(R.id.pwEdit);
-        userTypeRadio = (RadioGroup)view.findViewById(R.id.userType);
-        userFinalTypeRadio = (RadioButton)view.findViewById(R.id.user_regUser);
+        name = view.findViewById(R.id.nameEdit);
+        emailID = view.findViewById(R.id.idEdit);
+        password = view.findViewById(R.id.pwEdit);
+        userTypeRadio = view.findViewById(R.id.userType);
+        userFinalTypeRadio = view.findViewById(R.id.user_regUser);
         userType = User.UserType.REG_USER;
 
-        cancelButton = (Button)view.findViewById(R.id.cancelButton);
-        submitButton = (Button)view.findViewById(R.id.submitButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
+        submitButton = view.findViewById(R.id.submitButton);
 
         auth = FirebaseAuth.getInstance();
 
         userTypeRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int index) {
-                userFinalTypeRadio = (RadioButton)view.findViewById(index);
+                userFinalTypeRadio = view.findViewById(index);
                 switch (index) {
                     case R.id.user_regUser:
                         userType = User.UserType.REG_USER;
@@ -96,7 +101,7 @@ public class RegistrationFragment extends Fragment {
         name.setText("");
         emailID.setText("");
         password.setText("");
-        userFinalTypeRadio = (RadioButton)view.findViewById(R.id.user_regUser);
+        userFinalTypeRadio = view.findViewById(R.id.user_regUser);
     }
     private User checkRegisterInfo() {
         String name = this.name.getText().toString().trim();
@@ -110,20 +115,26 @@ public class RegistrationFragment extends Fragment {
     private void registerNewUser(final User newUser) {
         final String emailID = newUser.getEmailID();
         final String pw = newUser.getPassword();
-        auth.createUserWithEmailAndPassword(emailID, pw).addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(emailID, pw).addOnCompleteListener(this.getActivity(),
+                new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
                     FirebaseAuthException e = (FirebaseAuthException)task.getException();
-                    Toast.makeText(view.getContext(), "Registration Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(),
+                            "Registration Failed: " + e.getMessage(),
+                                                        Toast.LENGTH_SHORT).show();
                 } else {
                     FirebaseDatabase.getInstance().getReference()
                             .child("users")
                             .child(auth.getUid())
-                            .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            .setValue(newUser)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(view.getContext(), "Registration Complete", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(),
+                                    "Registration Complete",
+                                                        Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

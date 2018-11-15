@@ -1,54 +1,35 @@
 package cs.gtstudent.zwaste;
 
 import android.content.Intent;
-import android.graphics.Point;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Controller class responsible for displaying main options to the user.
+ * Many of the displayed functions are not yet to be implemented.
+ */
 public class MainMenuActivity extends AppCompatActivity {
 
     //View Component
     private ImageView logOutIcon;
-    private ConstraintLayout showLocationLayout, donationTrackerLayout,
-            profileLayout, settingsLayout;
-    private ImageView showLocationIcon, donationTrackerIcon,
-            profileIcon, settingsIcon;
+    private ConstraintLayout showLocationLayout;
+    private ConstraintLayout donationTrackerLayout;
+    private ConstraintLayout profileLayout;
+    private ConstraintLayout settingsLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        /**
+        /*
         List<LocationData> locationDataList = new ArrayList<>();
         InputStream is = getResources().openRawResource(R.raw.location_data);
         CSVReader csvReader = new CSVReader(is);
@@ -65,7 +46,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 }
             });
         }
-        **/
+        */
 
 
         showLocationLayout = findViewById(R.id.showLocationLayout);
@@ -73,10 +54,8 @@ public class MainMenuActivity extends AppCompatActivity {
         profileLayout = findViewById(R.id.profileLayout);
         settingsLayout = findViewById(R.id.settingsLayout);
 
-        showLocationIcon = findViewById(R.id.showLocationIcon);
-        donationTrackerIcon = findViewById(R.id.donationTrackerIcon);
-        profileIcon = findViewById(R.id.profileIcon);
-        settingsIcon = findViewById(R.id.settingsIcon);
+        logOutIcon = findViewById(R.id.logOutIcon);
+
 
         showLocationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,16 +74,29 @@ public class MainMenuActivity extends AppCompatActivity {
         profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "User Profile is not yet implemented", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),
+                        "User Profile is not yet implemented",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         settingsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Settings is not yet implemented", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),
+                        "Settings is not yet implemented", Toast.LENGTH_SHORT).show();
             }
         });
 
+        logOutIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),
+                        "You signed out.", Toast.LENGTH_SHORT).show();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                finish();
+            }
+        });
     }
 
 }

@@ -1,8 +1,6 @@
 package cs.gtstudent.zwaste;
 
-import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,13 +26,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Controller class responsible for showing items
+ * that the location user selected holds.
+ */
 public class ShowItemsActivity extends AppCompatActivity {
 
-    private RecyclerView itemsRecyView;
-    private RecyclerView.LayoutManager itemsRecyManager;
-    private ItemRecyViewAdapter adapter;
+    private RecyclerView itemsRecycleView;
+    private RecyclerView.LayoutManager itemsRecycleManager;
+    private ItemRecycleViewAdapter adapter;
 
     private ImageView searchLogo;
 
@@ -45,29 +43,30 @@ public class ShowItemsActivity extends AppCompatActivity {
     private EditText editSearchItemData;
     private RadioGroup searchType;
 
-    LocationRecyViewItem locationRecyViewItem;
-    List<ItemRecyViewItem> items;
+    private LocationRecycleViewItem locationRecycleViewItem;
+    private List<ItemRecycleViewItem> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_items);
 
-        locationRecyViewItem = (LocationRecyViewItem) getIntent().getExtras().get("LOCATION_DATA");
+        locationRecycleViewItem = (LocationRecycleViewItem) getIntent().getExtras().get("LOCATION_DATA");
 
-        itemsRecyView = findViewById(R.id.itemsRecyView);
-        itemsRecyView.setHasFixedSize(true);
-        itemsRecyManager = new LinearLayoutManager(this);
-        itemsRecyView.setLayoutManager(itemsRecyManager);
+        itemsRecycleView = findViewById(R.id.itemsRecyView);
+        itemsRecycleView.setHasFixedSize(true);
+        itemsRecycleManager = new LinearLayoutManager(this);
+        itemsRecycleView.setLayoutManager(itemsRecycleManager);
 
-        items = populateWithItems(locationRecyViewItem);
-        adapter = new ItemRecyViewAdapter(items);
-        itemsRecyView.setAdapter(adapter);
+        items = populateWithItems();
+        adapter = new ItemRecycleViewAdapter(items);
+        itemsRecycleView.setAdapter(adapter);
 
         searchLogo = findViewById(R.id.searchLogo);
         searchLogo.bringToFront();
 
-        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext()
+                                        .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View customView = inflater.inflate(R.layout.search_item_bar_style,null);
         //Spinner itemSearchOptions = customView.findViewById(R.id.itemSearchOptions);
         editSearchItemData = customView.findViewById(R.id.editSearchItemData);
@@ -85,7 +84,7 @@ public class ShowItemsActivity extends AppCompatActivity {
                 int width = size.x;
 
                 searchPopUp = new PopupWindow(customView);
-                searchPopUp.setWidth(width - 200);
+                searchPopUp.setWidth(width - (int)(0.2*width));
                 searchPopUp.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
                 searchPopUp.setFocusable(true);
 
@@ -113,16 +112,19 @@ public class ShowItemsActivity extends AppCompatActivity {
         });
     }
 
-    private List<ItemRecyViewItem> populateWithItems(LocationRecyViewItem locationData) {
-        final List<ItemRecyViewItem> stuff = new ArrayList<>();
+    private List<ItemRecycleViewItem> populateWithItems() {
+        final List<ItemRecycleViewItem> stuff = new ArrayList<>();
         DatabaseReference dbr = FirebaseDatabase.getInstance().getReference()
                 .child("items");
         dbr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String locationName = locationRecycleViewItem.getLocationName();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if (ds.getValue(ItemRecyViewItem.class).getLocation().equals(locationRecyViewItem.getLocationName()))
-                        stuff.add((ItemRecyViewItem)(ds.getValue(ItemRecyViewItem.class)));
+                    if (ds.getValue(ItemRecycleViewItem.class).getLocation()
+                                .equals(locationName)) {
+                        stuff.add((ds.getValue(ItemRecycleViewItem.class)));
+                    }
                 }
             }
 
@@ -134,18 +136,18 @@ public class ShowItemsActivity extends AppCompatActivity {
         return stuff;
     }
 
-    private void filterItemsWithCondition(String data, int id) {
-        // Get all itemRecyViewItems of this location
+    private void filterItemsWithCondition(CharSequence data, int id) {
+        // Get all itemRecycleViewItems of this location
         // Get their names or category
         // Re define list of items
 
-        List<ItemRecyViewItem> itemsHere = items;
-        List<ItemRecyViewItem> itemsConditionFit = new ArrayList<>();
-        if (itemsHere.size() == 0) return;
+        List<ItemRecycleViewItem> itemsHere = items;
+        List<ItemRecycleViewItem> itemsConditionFit = new ArrayList<>();
+        if (itemsHere.isEmpty()) { return; }
 
         switch (id) {
             case R.id.searchWithName:
-                for (ItemRecyViewItem item : itemsHere) {
+                for (ItemRecycleViewItem item : itemsHere) {
                     String itemProperty = item.getItemName();
                     if (itemProperty.contains(data)) {
                         itemsConditionFit.add(item);
@@ -153,7 +155,7 @@ public class ShowItemsActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.searchWithCategory:
-                for (ItemRecyViewItem item : itemsHere) {
+                for (ItemRecycleViewItem item : itemsHere) {
                     String itemProperty = item.getItemType();
                     if (itemProperty.contains(data)) {
                         itemsConditionFit.add(item);
@@ -161,7 +163,7 @@ public class ShowItemsActivity extends AppCompatActivity {
                 }
                 break;
         }
-        adapter = new ItemRecyViewAdapter(itemsConditionFit);
-        itemsRecyView.setAdapter(adapter);
+        adapter = new ItemRecycleViewAdapter(itemsConditionFit);
+        itemsRecycleView.setAdapter(adapter);
     }
 }

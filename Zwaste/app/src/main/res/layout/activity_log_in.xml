@@ -9,6 +9,7 @@
     <ImageView
         android:id="@+id/titleLogo"
         android:src="@drawable/title_logo"
+        android:contentDescription="@string/title_logo_description"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="80dp"
         android:layout_width="wrap_content"

@@ -1,25 +1,45 @@
 package cs.gtstudent.zwaste;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-import cs.gtstudent.zwaste.ItemRecyViewItem;
+/**
+ * Model class that holds information about the location.
+ */
+class LocationData implements Serializable {
 
-public class LocationData implements Serializable {
+    private final String locationName;
+    private final String locationType;
+    private final String longitude;
+    private final String latitude;
+    private final String address;
+    private final String phoneNum;
 
-    private String locationName;
-    private String locationType;
-    private String longitude;
-    private String latitude;
-    private String address;
-    private String phoneNum;
-
+    /**
+     * Default constructor of LocationData.
+     * Serves no significant purpose but to let this class allowed to be uploaded to
+     * Firebase.
+     */
     public LocationData() {
+        this.locationName = "";
+        this.locationType = "";
+        this.longitude = "";
+        this.latitude = "";
+        this.address = "";
+        this.phoneNum = "";
     }
 
-    public LocationData(String locationName, String locationType, String longitude, String latitude, String address, String phoneNum) {
+    /**
+     * Constructor for LocationData. Receives all needed information to
+     * describe the location.
+     * @param locationName Name of the location.
+     * @param locationType Type of the location.
+     * @param longitude Longitude of the location
+     * @param latitude Latitude of the location.
+     * @param address Address of the location.
+     * @param phoneNum Contact number of the location.
+     */
+    public LocationData(String locationName, String locationType,
+                        String longitude, String latitude, String address, String phoneNum) {
         this.locationName = locationName;
         this.locationType = locationType;
         this.longitude = longitude;
@@ -29,7 +49,7 @@ public class LocationData implements Serializable {
     }
 
     /**
-     *
+     * Constructor for LocationData class, but received data are in an array.
      * @param data Unprocessed data from csv file;
      *             address must be made by adding street address, city, state, and zip code.
      */
@@ -50,14 +70,39 @@ public class LocationData implements Serializable {
                 + "Phone Number: " + phoneNum;
     }
 
-    public String getLocationName() {
-        return locationName;
-    }
-    public String getLocationType() {
-        return locationType;
-    }
+    /**
+     * Getter method for Location Name.
+     * @return name of the location.
+     */
+    public String getLocationName() { return locationName; }
+
+    /**
+     * Getter method for location type.
+     * @return type of the location.
+     */
+    public CharSequence getLocationType() { return locationType; }
+
+    /**
+     * Getter method for longitude.
+     * @return longitude of the location.
+     */
     public String getLongitude() { return longitude; }
+
+    /**
+     * Getter method for latitude.
+     * @return latitude of the location.
+     */
     public String getLatitude() { return latitude; }
+
+    /**
+     * Getter method for address of the location.
+     * @return address of the location.
+     */
     public String getAddress() { return address; }
+
+    /**
+     * Getter method for contact number of the location.
+     * @return Contact phone number of the location.
+     */
     public String getPhoneNum() { return phoneNum; }
 }

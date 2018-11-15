@@ -1,34 +1,33 @@
 package cs.gtstudent.zwaste;
 
-import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller class which lists every available locations.
+ */
 public class MainScreenActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
+    private List<LocationData> csvDataList;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager recyLayoutManager;
-    private List<LocationData> csvDataList;
-    private LocationRecyViewAdapter adapter;
+    private LocationRecycleViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main_screen);
         auth = FirebaseAuth.getInstance();
@@ -39,23 +38,30 @@ public class MainScreenActivity extends AppCompatActivity {
 
         csvDataList = new ArrayList<>();
 
-        adapter = new LocationRecyViewAdapter(populateWithLocations());
+        adapter = new LocationRecycleViewAdapter(populateWithLocations());
         recyclerView.setAdapter(adapter);
     }
+
+    /**
+     * Signs the user out when the Log out button is clicked.
+     * This method is triggered by R.id.LogOutButton.
+     * @param view Instance of the view that is currently active.
+     */
     public void backToLogIn(View view) {
         Toast.makeText(this, "You logged out.", Toast.LENGTH_SHORT).show();
         auth.signOut();
         this.finish();
     }
-    private List<LocationRecyViewItem> populateWithLocations() {
-        InputStream is = getResources().openRawResource(R.raw.location_data);
+    private List<LocationRecycleViewItem> populateWithLocations() {
+        Resources r = getResources();
+        InputStream is = r.openRawResource(R.raw.location_data);
         CSVReader csvReader = new CSVReader(is);
-        ArrayList<LocationRecyViewItem> items = new ArrayList<>();
+        List<LocationRecycleViewItem> items = new ArrayList<>();
         csvDataList = csvReader.read();
 
         for (int x = 1; x < csvDataList.size(); x++) {
             LocationData d = csvDataList.get(x);
-            items.add(new LocationRecyViewItem(R.drawable.title_logo, d));
+            items.add(new LocationRecycleViewItem(R.drawable.title_logo, d));
         }
         return items;
     }

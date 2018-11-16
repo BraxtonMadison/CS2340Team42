@@ -64,6 +64,7 @@ public class LogInFragment extends Fragment {
 
         return view;
     }
+
     private void checkLogInInfo(final View view) {
         isLogInSuccessful = false;
 
@@ -73,10 +74,13 @@ public class LogInFragment extends Fragment {
         email = emailInput.getText().toString().trim();
         password = pwInput.getText().toString().trim();
 
-        if (!email.contains("@")) {
-            Toast.makeText(this.getActivity(), "Please check your email.",
-                                                                    Toast.LENGTH_SHORT).show();
-            Log.i("Log In Failure", "Reason: Email format failure");
+        String emailStr = DataValidation.validateEmail(email);
+        String pwStr = DataValidation.validatePassword(password);
+
+        if (!emailStr.equals("Valid email.")) {
+            Toast.makeText(this.getActivity(), emailStr, Toast.LENGTH_SHORT).show();
+        } else if (!pwStr.equals("Valid password.")) {
+            Toast.makeText(this.getActivity(), pwStr, Toast.LENGTH_SHORT).show();
         } else {
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this.getActivity(),

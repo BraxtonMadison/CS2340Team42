@@ -68,4 +68,21 @@ public class FilterItemsTests {
         List<ItemRecycleViewItem> actual = FilterItems.filterItems(itemsHere, data, false);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testFilterItems05EmptyListPassedIn() {
+        data = "Coffee";
+        itemsHere.clear();
+        List<ItemRecycleViewItem> expected = new ArrayList<>();
+        List<ItemRecycleViewItem> actual = FilterItems.filterItems(itemsHere, data, true);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testFilterItems06NoMatchingItems() {
+        data = "Flannel";
+        List<ItemRecycleViewItem> expected = new ArrayList<>();
+        List<ItemRecycleViewItem> actual = FilterItems.filterItems(itemsHere, data, true);
+        assertEquals(expected, actual);
+    }
 }

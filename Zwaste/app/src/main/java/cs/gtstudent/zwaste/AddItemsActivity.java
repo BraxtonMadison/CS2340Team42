@@ -53,7 +53,8 @@ public class AddItemsActivity extends AppCompatActivity {
                     DatabaseReference dbr = FirebaseDatabase.getInstance().getReference();
                     dbr.child("items")
                             .child(newItem.getItemName())
-                            .setValue(newItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            .setValue(newItem)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getApplicationContext(),

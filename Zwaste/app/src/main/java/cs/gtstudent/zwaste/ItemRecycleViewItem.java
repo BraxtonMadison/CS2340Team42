@@ -16,10 +16,7 @@ class ItemRecycleViewItem implements Serializable {
      * Default constructor of ItemRecycleViewItem class.
      */
     public ItemRecycleViewItem() {
-        this.imageID = R.id.titleLogo;
-        this.location = "";
-        this.itemName = "";
-        this.itemName = "";
+        this(R.id.titleLogo, "", "", "");
     }
 
     /**
@@ -65,4 +62,24 @@ class ItemRecycleViewItem implements Serializable {
      * @return Type / category of the item.
      */
     public String getItemType() { return itemType; }
+
+    @Override
+    public String toString() {
+        return String.format("Item with name %s, location %s, and type %s", itemName, location, itemType);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof ItemRecycleViewItem)) {
+            return false;
+        } else {
+            ItemRecycleViewItem other = (ItemRecycleViewItem) o;
+            return itemName.equals(other.getItemName()) && imageID == other.getImageID() && itemType.equals(other.getItemType()) && location.equals(other.getLocation());
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return imageID ^ itemName.hashCode() ^ itemType.hashCode() ^ location.hashCode();
+    }
 }

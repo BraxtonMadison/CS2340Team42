@@ -74,13 +74,10 @@ public class LogInFragment extends Fragment {
         email = emailInput.getText().toString().trim();
         password = pwInput.getText().toString().trim();
 
-        String emailStr = DataValidation.validateEmail(email);
-        String pwStr = DataValidation.validatePassword(password);
+        String errorMsg = DataValidation.validateRegistrationInfo(email, password);
 
-        if (!emailStr.equals("Valid email.")) {
-            Toast.makeText(this.getActivity(), emailStr, Toast.LENGTH_SHORT).show();
-        } else if (!pwStr.equals("Valid password.")) {
-            Toast.makeText(this.getActivity(), pwStr, Toast.LENGTH_SHORT).show();
+        if (!errorMsg.equals("Valid info.")) {
+            Toast.makeText(this.getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
         } else {
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this.getActivity(),

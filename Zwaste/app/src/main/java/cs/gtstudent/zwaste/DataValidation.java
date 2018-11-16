@@ -4,16 +4,40 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DataValidation {
-    public static boolean isValidEmail(String email) {
+    public static String validateEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        Pattern invalidPattern = Pattern.compile("[^a-zA-Z0-9!#$%&'*+\\-/=?^_`{|}~\\.@]");
+        Matcher invalidMatcher = invalidPattern.matcher(email);
+
+        int numAts = 0;
+        int numPeriods = 0;
+        for (int i = 0; i < email.length(); i++) {
+            if (email.charAt(i) == '@') {
+                numAts++;
+            } else if (email.charAt(i) == '.') {
+                numPeriods++;
+            }
+        }
+
         if (email.matches(emailRegex)) {
-            return true;
+            return "Valid email.";
+        } else if (numAts == 0) {
+            return "Your email must contain the \'@\' symbol.";
+        } else if (numAts > 1) {
+            return "Your email must contain only one \'@\' symbol.";
+        } else if (numPeriods == 0) {
+            return "Your email must contain the \'.\' symbol.";
+        } else if (numPeriods > 1) {
+            return "Your email must contain only one \'.\' symbol.";
+        } else if (invalidMatcher.find()) {
+            return "Your email contains one or more invalid characters.";
         } else {
-            return false;
+            return "Your email is invalid; please check again.";
         }
     }
 
-    public static String isValidPassword (String password) {
+    public static String validatePassword (String password) {
 
         if (password.length() < 8) {
             return "Password must be at least 8 characters long.";
@@ -40,6 +64,6 @@ public class DataValidation {
             return "Password must contain at least one capital letter.";
         }
 
-        return "Valid Password.";
+        return "Valid password.";
     }
 }

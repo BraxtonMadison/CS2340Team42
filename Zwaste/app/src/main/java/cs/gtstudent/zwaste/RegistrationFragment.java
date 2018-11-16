@@ -89,7 +89,9 @@ public class RegistrationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 User newUser = checkRegisterInfo();
-                registerNewUser(newUser);
+                if (newUser != null) {
+                    registerNewUser(newUser);
+                }
                 removeAllText();
                 ((LogInActivity)getActivity()).setFragment(0);
             }
@@ -109,9 +111,23 @@ public class RegistrationFragment extends Fragment {
         String emailId = this.emailID.getText().toString().trim();
         String password = this.password.getText().toString().trim();
 
-        //Criteria for appropriate user information would go here but I was too lazy to write them
+        //Criteria for appropriate user information would go here but I was too lazy to write them  --Louis
+        //But wait!!! Alex and Louis have now written methods to examine these criteria
+        //Please help I'm sad :(
+        // --Alex
 
-        return new User(name, emailId, password, userType);
+        String emailStr = DataValidation.validateEmail(emailId);
+        String pwStr = DataValidation.validatePassword(password);
+
+        if (!emailStr.equals("Valid email.")) {
+            Toast.makeText(this.getActivity(), emailStr, Toast.LENGTH_SHORT).show();
+            return null;
+        } else if (!pwStr.equals("Valid password.")) {
+            Toast.makeText(this.getActivity(), pwStr, Toast.LENGTH_SHORT).show();
+            return null;
+        } else {
+            return new User(name, emailId, password, userType);
+        }
     }
     private void registerNewUser(final User newUser) {
         final String emailID = newUser.getEmailID();

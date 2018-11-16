@@ -49,7 +49,7 @@ public class EmailValidationTests {
         email = "john@smith@gmail.com";
         assertEquals("Your email must contain only one \'@\' symbol.", DataValidation.validateEmail(email));
     }
-    
+
     @Test
     public void testValidateEmail08InvalidCharacters() {
         email = "!#$%^&*()@gmail.com";

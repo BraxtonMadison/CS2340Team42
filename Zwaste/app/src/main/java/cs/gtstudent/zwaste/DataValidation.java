@@ -20,7 +20,9 @@ public class DataValidation {
             }
         }
 
-        if (email.matches(emailRegex)) {
+        if (email.equals("")) {
+            return "Please enter an email.";
+        } else if (email.matches(emailRegex)) {
             return "Valid email.";
         } else if (numAts == 0) {
             return "Your email must contain the \'@\' symbol.";

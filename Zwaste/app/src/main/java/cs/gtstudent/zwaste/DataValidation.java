@@ -47,7 +47,7 @@ public class DataValidation {
         } else if (numPeriods == 0) {
             return "Your email must contain the \'.\' symbol.";
         } else if (numPeriods > 1) {
-            return "Your email must contain only one \'.\' symbol.";
+            return "Your email must contain only one \'.\' symbol in the domain part of your email.";
         } else if (invalidMatcher.find()) {
             return "Your email contains one or more invalid characters.";
         } else {

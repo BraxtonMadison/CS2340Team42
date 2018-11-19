@@ -88,7 +88,7 @@ public class RegistrationFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User newUser = checkRegisterInfo();
+                User newUser = checkRegistrationInfo();
                 if (newUser != null) {
                     registerNewUser(newUser);
                 }
@@ -106,7 +106,7 @@ public class RegistrationFragment extends Fragment {
         password.setText("");
         userFinalTypeRadio = view.findViewById(R.id.user_regUser);
     }
-    private User checkRegisterInfo() {
+    private User checkRegistrationInfo() {
         String name = this.name.getText().toString().trim();
         String emailId = this.emailID.getText().toString().trim();
         String password = this.password.getText().toString().trim();
@@ -116,14 +116,9 @@ public class RegistrationFragment extends Fragment {
         //Please help I'm sad :(
         // --Alex
 
-        String emailStr = DataValidation.validateEmail(emailId);
-        String pwStr = DataValidation.validatePassword(password);
-
-        if (!emailStr.equals("Valid email.")) {
-            Toast.makeText(this.getActivity(), emailStr, Toast.LENGTH_SHORT).show();
-            return null;
-        } else if (!pwStr.equals("Valid password.")) {
-            Toast.makeText(this.getActivity(), pwStr, Toast.LENGTH_SHORT).show();
+        String errorMsg = DataValidation.validateRegistrationInfo(emailId, password);
+        if (!errorMsg.equals("Valid info.")) {
+            Toast.makeText(this.getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
             return null;
         } else {
             return new User(name, emailId, password, userType);

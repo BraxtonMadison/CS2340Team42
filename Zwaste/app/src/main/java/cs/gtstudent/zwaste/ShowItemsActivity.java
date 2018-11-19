@@ -147,20 +147,10 @@ public class ShowItemsActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.searchWithName:
-                for (ItemRecycleViewItem item : itemsHere) {
-                    String itemProperty = item.getItemName();
-                    if (itemProperty.contains(data)) {
-                        itemsConditionFit.add(item);
-                    }
-                }
+                FilterItems.filterItems(itemsHere, data, true);
                 break;
             case R.id.searchWithCategory:
-                for (ItemRecycleViewItem item : itemsHere) {
-                    String itemProperty = item.getItemType();
-                    if (itemProperty.contains(data)) {
-                        itemsConditionFit.add(item);
-                    }
-                }
+                FilterItems.filterItems(itemsHere, data, false);
                 break;
         }
         adapter = new ItemRecycleViewAdapter(itemsConditionFit);

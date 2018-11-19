@@ -1,9 +1,25 @@
 package cs.gtstudent.zwaste;
 
+import android.widget.Toast;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DataValidation {
+
+    public static String validateRegistrationInfo(String email, String password) {
+        String emailStr = validateEmail(email);
+        String pwStr = validatePassword(password);
+
+        if (!emailStr.equals("Valid email.")) {
+            return emailStr;
+        } else if (!pwStr.equals("Valid password.")) {
+            return pwStr;
+        } else {
+            return "Valid info.";
+        }
+    }
+
     public static String validateEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
@@ -31,7 +47,7 @@ public class DataValidation {
         } else if (numPeriods == 0) {
             return "Your email must contain the \'.\' symbol.";
         } else if (numPeriods > 1) {
-            return "Your email must contain only one \'.\' symbol.";
+            return "Your email must contain only one \'.\' symbol in the domain part of your email.";
         } else if (invalidMatcher.find()) {
             return "Your email contains one or more invalid characters.";
         } else {

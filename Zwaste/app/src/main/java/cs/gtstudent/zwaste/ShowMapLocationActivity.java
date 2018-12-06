@@ -30,9 +30,6 @@ public class ShowMapLocationActivity extends AppCompatActivity
 
     private DatabaseReference db;
     private List<LocationData> locationDataList;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager recyclerLayoutManager;
-    private LocationRecycleViewAdapter adapter;
 
 
     @Override
@@ -44,11 +41,6 @@ public class ShowMapLocationActivity extends AppCompatActivity
 
         db = FirebaseDatabase.getInstance().getReference()
                     .child("locations");
-
-        recyclerView = findViewById(R.id.recyView);
-        recyclerView.setHasFixedSize(true);
-        recyclerLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(recyclerLayoutManager);
 
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,13 +55,6 @@ public class ShowMapLocationActivity extends AppCompatActivity
                         .findFragmentById(R.id.map);
                 mapFragment.getMapAsync(ShowMapLocationActivity.this);
 
-
-                List<LocationRecycleViewItem> locationRecycleViewItems = new ArrayList<>();
-                for (LocationData data : locationDataList) {
-                    locationRecycleViewItems.add(new LocationRecycleViewItem(R.drawable.title_logo, data));
-                }
-                adapter = new LocationRecycleViewAdapter(locationRecycleViewItems);
-                recyclerView.setAdapter(adapter);
             }
 
             @Override

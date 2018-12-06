@@ -21,6 +21,7 @@ public class LogInActivity extends AppCompatActivity {
     private FrameLayout logInRegistrationFrame;
     private LogInFragment logInFragment;
     private RegistrationFragment registrationFragment;
+    private PasswordRecoveryFragment passwordRecoveryFragment;
 
     //Animation Components
     private Animation splash_logo;      //For Title Logo Appearance
@@ -38,6 +39,7 @@ public class LogInActivity extends AppCompatActivity {
         logInRegistrationFrame = findViewById(R.id.logInRegistrationFragment);
         logInFragment = new LogInFragment();
         registrationFragment = new RegistrationFragment();
+        passwordRecoveryFragment = new PasswordRecoveryFragment();
 
         //Set Log in fragment as initial fragment
         setFragment(0);
@@ -98,6 +100,18 @@ public class LogInActivity extends AppCompatActivity {
                 fragmentExchange.setCustomAnimations(R.animator.slide_right_in,
                                                             R.animator.slide_left_out);
                 fragmentExchange.replace(R.id.logInRegistrationFragment, registrationFragment);
+                fragmentExchange.commit();
+                break;
+            case 2:
+                fragmentExchange.setCustomAnimations(R.animator.slide_left_in,
+                                                            R.animator.slide_right_out);
+                fragmentExchange.replace(R.id.logInRegistrationFragment, passwordRecoveryFragment);
+                fragmentExchange.commit();
+                break;
+            case 3:
+                fragmentExchange.setCustomAnimations(R.animator.slide_right_in,
+                                                            R.animator.slide_left_out);
+                fragmentExchange.replace(R.id.logInRegistrationFragment, logInFragment);
                 fragmentExchange.commit();
                 break;
         }

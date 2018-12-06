@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/loginInfoEdit"
         android:orientation="vertical"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <EditText
@@ -47,6 +47,7 @@
             android:textColor="@color/primaryGrey"
             android:fontFamily="sans-serif-condensed"/>
         <TextView
+            android:id="@+id/forgotPasswordButton"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

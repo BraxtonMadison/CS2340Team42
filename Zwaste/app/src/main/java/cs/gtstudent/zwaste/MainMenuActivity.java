@@ -59,7 +59,7 @@ public class MainMenuActivity extends AppCompatActivity {
         showLocationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ShowMapLocationActivity.class);
+                Intent intent = new Intent(view.getContext(), MainScreenActivity.class);
                 startActivity(intent);
             }
         });

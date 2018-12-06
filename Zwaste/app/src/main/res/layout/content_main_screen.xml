@@ -22,20 +22,19 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="30sp"/>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyView"
+        android:id="@+id/recycleView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:background="@color/primaryIvory"
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:drawSelectorOnTop="false"/>
     <Button
-        android:id="@+id/LogOutButton"
+        android:id="@+id/showMapButton"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="Log Out"
+        android:text="Show Map"
         android:textSize="20sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="backToLogIn"/>
+        android:layout_height="wrap_content"/>
 </LinearLayout>

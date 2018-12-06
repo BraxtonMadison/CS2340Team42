@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +30,7 @@ public class LogInFragment extends Fragment {
     private Button registerUserButton;
     private EditText emailInput;
     private EditText pwInput;  //ID and PW input
+    private TextView forgotPasswordButton;
 
     private FirebaseAuth auth;
 
@@ -43,6 +45,7 @@ public class LogInFragment extends Fragment {
 
         logInButton = view.findViewById(R.id.logInButton);
         registerUserButton = view.findViewById(R.id.registerUserButton);
+        forgotPasswordButton = view.findViewById(R.id.forgotPasswordButton);
 
         emailInput = view.findViewById(R.id.emailInput);
         pwInput = view.findViewById(R.id.pwInput);
@@ -61,6 +64,13 @@ public class LogInFragment extends Fragment {
                 ((LogInActivity)getActivity()).setFragment(1);
             }
         });
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recoverPassword(view);
+            }
+        });
+
 
         return view;
     }
@@ -101,5 +111,9 @@ public class LogInFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void recoverPassword(View view) {
+        ((LogInActivity)getActivity()).setFragment(2);
     }
 }

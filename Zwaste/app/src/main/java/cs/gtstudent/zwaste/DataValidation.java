@@ -39,6 +39,25 @@ public class DataValidation {
         }
     }
 
+    public static boolean isEmailValid(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        Pattern invalidPattern = Pattern.compile("[^a-zA-Z0-9!#$%&'*+\\-/=?^_`{|}~\\.@]");
+        Matcher invalidMatcher = invalidPattern.matcher(email);
+
+        int numAts = 0;
+        int numPeriods = 0;
+        for (int i = 0; i < email.length(); i++) {
+            if (email.charAt(i) == '@') {
+                numAts++;
+            } else if (email.charAt(i) == '.') {
+                numPeriods++;
+            }
+        }
+
+        return email.matches(emailRegex);
+    }
+
     public static String validatePassword (String password) {
 
         if (password.length() < 8) {
